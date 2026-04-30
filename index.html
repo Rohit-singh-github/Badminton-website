@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kids Badminton Coaching Guide</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f5f4f0;
+    color: #1a1a18;
+    min-height: 100vh;
+    padding: 0 0 3rem;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: #1a1a18;
+    color: #f5f4f0;
+    padding: 2rem 1.5rem 1.75rem;
+    text-align: center;
+  }
+  .site-header h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 6px; }
+  .site-header p { font-size: 13px; color: #a0a09a; }
+
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 1rem; }
+
+  /* SESSION STRUCTURE BAR */
+  .session-bar {
+    background: #fff;
+    border: 1px solid #e0dfd8;
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 1.25rem;
+  }
+  .session-bar h3 { font-size: 13px; font-weight: 600; color: #888780; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 1rem; }
+  .session-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  @media (min-width: 480px) { .session-grid { grid-template-columns: repeat(6, 1fr); } }
+  .session-card { background: #f5f4f0; border-radius: 10px; padding: 10px 8px; text-align: center; }
+  .session-card .sc-label { font-size: 10px; color: #888780; margin-bottom: 3px; }
+  .session-card .sc-val { font-size: 13px; font-weight: 600; color: #1a1a18; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .tab {
+    padding: 8px 18px; border-radius: 20px;
+    border: 1px solid #c8c7c0;
+    background: transparent;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; color: #5f5e5a;
+    transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tab.active { background: #1a1a18; color: #fff; border-color: #1a1a18; }
+
+  /* STAGE */
+  .stage { display: none; }
+  .stage.active { display: block; }
+
+  .stage-header { border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
+  .stage-header h2 { font-size: 20px; font-weight: 600; margin: 0 0 4px; }
+  .stage-header p { font-size: 13px; opacity: 0.85; line-height: 1.5; margin: 0; }
+  .stage-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; }
+
+  .s1-header { background: #EEEDFE; }
+  .s1-header h2, .s1-header p { color: #26215C; }
+  .s1-badge { background: #AFA9EC; color: #26215C; }
+
+  .s2-header { background: #E1F5EE; }
+  .s2-header h2, .s2-header p { color: #04342C; }
+  .s2-badge { background: #5DCAA5; color: #04342C; }
+
+  .s3-header { background: #FAEEDA; }
+  .s3-header h2, .s3-header p { color: #412402; }
+  .s3-badge { background: #EF9F27; color: #412402; }
+
+  /* ACCORDION */
+  .accordion { margin-bottom: 10px; background: #fff; border: 1px solid #e0dfd8; border-radius: 14px; overflow: hidden; }
+  .acc-head {
+    display: flex; align-items: center; gap: 10px;
+    padding: 13px 16px; cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: background 0.12s;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .accordion.open .acc-head { border-bottom-color: #e0dfd8; }
+  .acc-head:hover { background: #f5f4f0; }
+  .acc-icon { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .acc-title { font-size: 14px; font-weight: 600; color: #1a1a18; flex: 1; }
+  .acc-chevron { font-size: 10px; color: #888780; transition: transform 0.2s; }
+  .accordion.open .acc-chevron { transform: rotate(90deg); }
+  .acc-body { display: none; padding: 4px 16px 16px; }
+  .accordion.open .acc-body { display: block; }
+
+  .icon-purple { background: #EEEDFE; }
+  .icon-teal { background: #E1F5EE; }
+  .icon-amber { background: #FAEEDA; }
+
+  /* ITEMS */
+  .item { display: flex; gap: 10px; margin-top: 13px; align-items: flex-start; }
+  .item-num {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; flex-shrink: 0; margin-top: 1px;
+  }
+  .n-purple { background: #EEEDFE; color: #3C3489; }
+  .n-teal { background: #E1F5EE; color: #0F6E56; }
+  .n-amber { background: #FAEEDA; color: #854F0B; }
+
+  .item-body { flex: 1; }
+  .item-body strong { font-weight: 600; font-size: 13px; color: #1a1a18; }
+  .item-text { font-size: 13px; line-height: 1.6; color: #2c2c2a; }
+  .item-sub { font-size: 11px; color: #888780; margin-top: 2px; }
+
+  .tip {
+    background: #f5f4f0; border-radius: 10px;
+    padding: 10px 13px; margin-top: 13px;
+    font-size: 12px; color: #5f5e5a; line-height: 1.55;
+    border-left: 3px solid #c8c7c0;
+  }
+  .tip b { font-weight: 600; color: #1a1a18; }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <h1>🏸 Kids Badminton Coaching Guide</h1>
+  <p>A complete framework from first racket grip to competitive play</p>
+</div>
+
+<div class="wrap">
+
+  <div class="session-bar">
+    <h3>Session structure · every session</h3>
+    <div class="session-grid">
+      <div class="session-card"><div class="sc-label">Warmup</div><div class="sc-val">10–12 min</div></div>
+      <div class="session-card"><div class="sc-label">Skill work</div><div class="sc-val">20–25 min</div></div>
+      <div class="session-card"><div class="sc-label">Fun games</div><div class="sc-val">15–20 min</div></div>
+      <div class="session-card"><div class="sc-label">Cooldown</div><div class="sc-val">5–8 min</div></div>
+      <div class="session-card"><div class="sc-label">Group size</div><div class="sc-val">4–10 kids</div></div>
+      <div class="session-card"><div class="sc-label">Session length</div><div class="sc-val">60–75 min</div></div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showStage('s1',this)">Stage 1 — Beginners</button>
+    <button class="tab" onclick="showStage('s2',this)">Stage 2 — Developing</button>
+    <button class="tab" onclick="showStage('s3',this)">Stage 3 — Advancing</button>
+  </div>
+
+  <!-- ===== STAGE 1 ===== -->
+  <div class="stage active" id="s1">
+    <div class="stage-header s1-header">
+      <div class="stage-badge s1-badge">Stage 1 · Ages 6–10 recommended</div>
+      <h2>Complete beginners</h2>
+      <p>Kids who have never held a racket before. Focus is fun, confidence, and basic motor skills.</p>
+    </div>
+
+    <div class="accordion open">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-purple">🏃</div>
+        <div class="acc-title">Warmup exercises</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-purple">1</div><div class="item-body"><div class="item-text"><strong>Animal walk relay</strong> — crab walk, bear crawl, bunny hops across the court. Gets the body warm and kids laughing immediately.</div><div class="item-sub">3 min · full court · teams of 3–4</div></div></div>
+        <div class="item"><div class="item-num n-purple">2</div><div class="item-body"><div class="item-text"><strong>Balloon keep-up</strong> — each kid gets a balloon to hit upward with an open palm. Trains eye-hand coordination without fear of shuttles.</div><div class="item-sub">2 min · stationary</div></div></div>
+        <div class="item"><div class="item-num n-purple">3</div><div class="item-body"><div class="item-text"><strong>Follow the leader</strong> — coach leads side shuffles, high knees, arm circles and kids copy. Sneaks in athletic movement patterns.</div><div class="item-sub">3 min · follow line</div></div></div>
+        <div class="item"><div class="item-num n-purple">4</div><div class="item-body"><div class="item-text"><strong>Wrist circles + shoulder rolls</strong> — seated on court floor, gentle joint prep before they pick up rackets.</div><div class="item-sub">2 min · seated</div></div></div>
+        <div class="tip"><b>Coach tip:</b> Never call it "warming up" — call it "the mission" or "unlocking your powers." Kids engage far better with a narrative.</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-purple">🏸</div>
+        <div class="acc-title">Equipment & grip basics</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-purple">1</div><div class="item-body"><div class="item-text"><strong>Choosing the right racket</strong> — use lightweight junior rackets (70–80g). The grip should be thin enough for small hands. Check that fingers don't fully wrap around.</div><div class="item-sub">One-time setup · check each session</div></div></div>
+        <div class="item"><div class="item-num n-purple">2</div><div class="item-body"><div class="item-text"><strong>The handshake grip</strong> — teach forehand grip by saying "shake hands with the racket." The V between thumb and index sits on the top bevel. Loose and relaxed — no squeezing.</div><div class="item-sub">5 min · demonstrate + individual check</div></div></div>
+        <div class="item"><div class="item-num n-purple">3</div><div class="item-body"><div class="item-text"><strong>Grip pressure exercise</strong> — ask kids to grip as hard as they can (white knuckles), then release to 40%. This teaches the feel of a relaxed grip instantly.</div><div class="item-sub">2 min · partner check</div></div></div>
+        <div class="item"><div class="item-num n-purple">4</div><div class="item-body"><div class="item-text"><strong>Balancing the shuttle on strings</strong> — place a shuttle on the strings and have kids walk the court without dropping it. Great racket awareness exercise.</div><div class="item-sub">3 min · independent</div></div></div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-purple">🎯</div>
+        <div class="acc-title">Basic drills</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-purple">1</div><div class="item-body"><div class="item-text"><strong>Tap-ups (self rally)</strong> — stand still and tap the shuttle upward continuously. Start with forehand only. Count personal best each session.</div><div class="item-sub">5 min · personal best challenge</div></div></div>
+        <div class="item"><div class="item-num n-purple">2</div><div class="item-body"><div class="item-text"><strong>Drop feed rally</strong> — coach drops shuttle from shoulder height, kid hits it back gently. No placement pressure — just making contact.</div><div class="item-sub">8 min · 1-on-1 with coach or helper</div></div></div>
+        <div class="item"><div class="item-num n-purple">3</div><div class="item-body"><div class="item-text"><strong>Target toss</strong> — place hula hoops on the court. Kids stand at the service line and underarm-hit shuttles into hoops. Intro to aim.</div><div class="item-sub">5 min · 5 shuttles each</div></div></div>
+        <div class="item"><div class="item-num n-purple">4</div><div class="item-body"><div class="item-text"><strong>Net tap drill</strong> — stand close to the net, gently tap shuttle over from a low feed. Teaches the feel of clearing the net with minimal force.</div><div class="item-sub">5 min · partner drill</div></div></div>
+        <div class="tip"><b>Coach tip:</b> Never correct more than one thing at a time. Pick the most important error, fix it, then move on. Too many notes overwhelms kids instantly.</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-purple">🎮</div>
+        <div class="acc-title">Fun games</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-purple">1</div><div class="item-body"><div class="item-text"><strong>Shuttle Bowling</strong> — set up plastic bottles on one end. Kids hit shuttles to knock them down. Use a low tee to start. Instant gratification!</div><div class="item-sub">10 min · teams, 3 turns each</div></div></div>
+        <div class="item"><div class="item-num n-purple">2</div><div class="item-body"><div class="item-text"><strong>Freeze Rally</strong> — kids hit a self-rally. When coach shouts "FREEZE!" everyone stops in exactly the pose they are in. Funny poses = laughs = motivation.</div><div class="item-sub">5 min · whole group</div></div></div>
+        <div class="item"><div class="item-num n-purple">3</div><div class="item-body"><div class="item-text"><strong>Castle Defend</strong> — build a "castle" from cones. One kid defends with their racket. Others throw foam balls. Racket handling without pressure.</div><div class="item-sub">8 min · rotating roles</div></div></div>
+        <div class="tip"><b>Coach tip:</b> Celebrate effort louder than outcomes. "Wow, you really kept your eye on that one!" beats "Good shot!" every time.</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-purple">🧘</div>
+        <div class="acc-title">Cooldown</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-purple">1</div><div class="item-body"><div class="item-text"><strong>Slow-motion walk</strong> — walk slowly across the court in "slow motion" like they're in a movie. Heart rate drops naturally.</div><div class="item-sub">1 min</div></div></div>
+        <div class="item"><div class="item-num n-purple">2</div><div class="item-body"><div class="item-text"><strong>Seated hamstring stretch</strong> — sit, legs out, reach for toes. Hold 15 seconds. Teach kids to breathe out as they reach forward.</div><div class="item-sub">1 min</div></div></div>
+        <div class="item"><div class="item-num n-purple">3</div><div class="item-body"><div class="item-text"><strong>Shoulder cross stretch</strong> — pull one arm across the chest, hold 10 seconds each side. Critical after racket use.</div><div class="item-sub">1 min</div></div></div>
+        <div class="item"><div class="item-num n-purple">4</div><div class="item-body"><div class="item-text"><strong>Star of the session</strong> — ask every kid to name one thing a teammate did well. Builds team culture and ends on a high.</div><div class="item-sub">2 min · seated circle</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STAGE 2 ===== -->
+  <div class="stage" id="s2">
+    <div class="stage-header s2-header">
+      <div class="stage-badge s2-badge">Stage 2 · 3–6 months of experience</div>
+      <h2>Developing players</h2>
+      <p>Kids who can rally, know the basic grip, and understand court boundaries. Focus shifts to technique and footwork.</p>
+    </div>
+
+    <div class="accordion open">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-teal">🏃</div>
+        <div class="acc-title">Warmup exercises</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-teal">1</div><div class="item-body"><div class="item-text"><strong>Court ghost footwork</strong> — without shuttle, shadow the 6 corners in sequence. Builds the movement memory that underpins all badminton footwork.</div><div class="item-sub">3 min · mirror coach demo</div></div></div>
+        <div class="item"><div class="item-num n-teal">2</div><div class="item-body"><div class="item-text"><strong>Ladder drills</strong> — use an agility ladder for in-in-out-out and single-foot hops. Improves quickness and leg coordination.</div><div class="item-sub">3 min · 2–3 passes each</div></div></div>
+        <div class="item"><div class="item-num n-teal">3</div><div class="item-body"><div class="item-text"><strong>Partner mirror drill</strong> — one kid leads lateral shuffles, partner mirrors exactly 1m apart. Trains reactive speed and focus.</div><div class="item-sub">2 min · switch leader halfway</div></div></div>
+        <div class="item"><div class="item-num n-teal">4</div><div class="item-body"><div class="item-text"><strong>Racket dynamic stretch</strong> — with racket in hand, arm circles forward/backward, figure-8 wrist rolls, and slow overhead swings. Warms up the entire hitting chain.</div><div class="item-sub">2 min</div></div></div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-teal">🏸</div>
+        <div class="acc-title">Technique development</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-teal">1</div><div class="item-body"><div class="item-text"><strong>Forehand clear</strong> — introduce the throwing action. Elbow leads, snap the wrist at contact. Use the phrase "throw your hand at the shuttle."</div><div class="item-sub">10 min · feed drill + pairs</div></div></div>
+        <div class="item"><div class="item-num n-teal">2</div><div class="item-body"><div class="item-text"><strong>Backhand basics</strong> — teach the thumb-up backhand grip. Practice net lifts from the backhand side. Takes weeks to feel natural — be patient.</div><div class="item-sub">8 min · shadow swing + slow feeds</div></div></div>
+        <div class="item"><div class="item-num n-teal">3</div><div class="item-body"><div class="item-text"><strong>Low service</strong> — introduce short, low serve. Shuttle should skim the net and land in front of service line. Pendulum swing from waist height.</div><div class="item-sub">8 min · target markers</div></div></div>
+        <div class="item"><div class="item-num n-teal">4</div><div class="item-body"><div class="item-text"><strong>Ready position</strong> — feet shoulder-width apart, racket up at chest height, weight on balls of feet. Drill: coach points left/right, kid shuffles and returns.</div><div class="item-sub">5 min · reaction drill</div></div></div>
+        <div class="tip"><b>Coach tip:</b> Film a short clip and show kids their swing. Self-seeing creates faster correction than verbal instruction alone. Kids love watching themselves.</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-teal">🎯</div>
+        <div class="acc-title">Drills with purpose</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-teal">1</div><div class="item-body"><div class="item-text"><strong>Multi-shuttle feed drill</strong> — coach feeds 5 shuttles rapidly to different spots. Kid hits each and returns to center. Builds footwork + shot combo.</div><div class="item-sub">10 min · 3 rounds of 5</div></div></div>
+        <div class="item"><div class="item-num n-teal">2</div><div class="item-body"><div class="item-text"><strong>Straight clear rally</strong> — pairs hit clear shots straight down the line, cooperatively. Aim for 10+ consecutive shots. Count the rally.</div><div class="item-sub">8 min · count the rally</div></div></div>
+        <div class="item"><div class="item-num n-teal">3</div><div class="item-body"><div class="item-text"><strong>Net kill intro</strong> — coach feeds a loose net shuttle, kid pushes it steeply downward. Teach "don't flick — push flat and down."</div><div class="item-sub">5 min · slow feeds only</div></div></div>
+        <div class="item"><div class="item-num n-teal">4</div><div class="item-body"><div class="item-text"><strong>Service box challenge</strong> — mark targets in the service courts. Each serve attempt scores points for landing in different zones. Keep a scorecard for the season.</div><div class="item-sub">5 min · personal scoring</div></div></div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-teal">🎮</div>
+        <div class="acc-title">Fun games</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-teal">1</div><div class="item-body"><div class="item-text"><strong>King/Queen of the Court</strong> — winner stays on, loser rotates out. Play short 5-point games. Creates gentle competition and teaches kids to bounce back.</div><div class="item-sub">15 min · full group</div></div></div>
+        <div class="item"><div class="item-num n-teal">2</div><div class="item-body"><div class="item-text"><strong>Zone battle</strong> — divide court into 3 zones. Points are worth more the deeper into the opponent's court you land a shot. Teaches court awareness without explaining it.</div><div class="item-sub">10 min · pairs</div></div></div>
+        <div class="item"><div class="item-num n-teal">3</div><div class="item-body"><div class="item-text"><strong>Call shot game</strong> — before serving, player must call where they'll land it ("net!" or "back!"). Correct = 2 points. In but wrong = 1 point. Builds intention.</div><div class="item-sub">8 min · pairs</div></div></div>
+        <div class="tip"><b>Coach tip:</b> Introduce a "skill sticker chart." Kids earn a sticker for each new skill they demonstrate. Visible progress is incredibly motivating.</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-teal">🧘</div>
+        <div class="acc-title">Cooldown</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-teal">1</div><div class="item-body"><div class="item-text"><strong>Slow shadow footwork</strong> — move through the 6-corner pattern at 20% speed. Active recovery + movement pattern reinforcement in one.</div><div class="item-sub">2 min</div></div></div>
+        <div class="item"><div class="item-num n-teal">2</div><div class="item-body"><div class="item-text"><strong>Hip flexor lunge stretch</strong> — lunge forward, back knee on ground, hold 20 seconds each side. Essential for lateral court movers.</div><div class="item-sub">2 min</div></div></div>
+        <div class="item"><div class="item-num n-teal">3</div><div class="item-body"><div class="item-text"><strong>Forearm + wrist stretch</strong> — arm extended, palm down, gently press the back of the hand with the opposite hand. 15 seconds each side.</div><div class="item-sub">1 min</div></div></div>
+        <div class="item"><div class="item-num n-teal">4</div><div class="item-body"><div class="item-text"><strong>One thing I'll work on</strong> — each kid tells the coach one thing they want to improve next session. Creates ownership and gives coach a preview.</div><div class="item-sub">2 min</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== STAGE 3 ===== -->
+  <div class="stage" id="s3">
+    <div class="stage-header s3-header">
+      <div class="stage-badge s3-badge">Stage 3 · 6+ months of experience</div>
+      <h2>Advancing players</h2>
+      <p>Kids who can rally consistently and know basic strokes. Time to build tactical thinking, power, and competitive mindset.</p>
+    </div>
+
+    <div class="accordion open">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-amber">🏃</div>
+        <div class="acc-title">Warmup exercises</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-amber">1</div><div class="item-body"><div class="item-text"><strong>Competitive ghost sprints</strong> — coach shouts a corner number (1–6), kids sprint to it from center T and return. Race format. Loser does 3 mini squats.</div><div class="item-sub">3 min · race format</div></div></div>
+        <div class="item"><div class="item-num n-amber">2</div><div class="item-body"><div class="item-text"><strong>Jump rope or skipping</strong> — 60 seconds of light skipping. Elevates heart rate and improves foot speed and rhythm. Classic for a reason.</div><div class="item-sub">2 min</div></div></div>
+        <div class="item"><div class="item-num n-amber">3</div><div class="item-body"><div class="item-text"><strong>Partner racket tap rally</strong> — start rallying immediately in pairs as warm-up. Keep the shuttle low and controlled. Glides mentally into practice.</div><div class="item-sub">3 min · cooperative, no score</div></div></div>
+        <div class="item"><div class="item-num n-amber">4</div><div class="item-body"><div class="item-text"><strong>Full dynamic stretch chain</strong> — leg swings (10 each), hip openers, arm windmills, lateral lunge walks. Full-body prep for intense drills ahead.</div><div class="item-sub">3 min · in sequence</div></div></div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-amber">🏸</div>
+        <div class="acc-title">Advanced technique</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-amber">1</div><div class="item-body"><div class="item-text"><strong>Smash mechanics</strong> — jump position, contact point above and ahead, steep angle. Feed high clears and let them smash. Emphasize contact point over power — power follows.</div><div class="item-sub">10 min · feed + shadow + live</div></div></div>
+        <div class="item"><div class="item-num n-amber">2</div><div class="item-body"><div class="item-text"><strong>Drop shot (slice)</strong> — same swing as a clear, but slice the shuttle at the last moment. Disguise is the key concept — the deception is the shot.</div><div class="item-sub">8 min · pairs + coach feed</div></div></div>
+        <div class="item"><div class="item-num n-amber">3</div><div class="item-body"><div class="item-text"><strong>Crosscourt control</strong> — rally crosscourt forehands, then backhands. Teaches directional control and sets up tactical thinking.</div><div class="item-sub">8 min · themed rally</div></div></div>
+        <div class="item"><div class="item-num n-amber">4</div><div class="item-body"><div class="item-text"><strong>High backhand clear</strong> — the hardest basic shot. Teach the round-the-head option as an alternative. Both are valid; kids should know both exist.</div><div class="item-sub">8 min · scaffold from shadow</div></div></div>
+        <div class="tip"><b>Coach tip:</b> Show short video clips of junior international players on a tablet. Seeing elite young players — not adults — performing the same shots is massively inspiring.</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-amber">🎯</div>
+        <div class="acc-title">Tactical drills</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-amber">1</div><div class="item-body"><div class="item-text"><strong>Clear-drop pattern drill</strong> — pairs alternate: one hits a clear, other hits a drop. No deviating. Trains the most common rally pattern in junior badminton.</div><div class="item-sub">10 min · cooperative then competitive</div></div></div>
+        <div class="item"><div class="item-num n-amber">2</div><div class="item-body"><div class="item-text"><strong>3-shot pattern play</strong> — coach sets a 3-shot combo (e.g. serve → lift → smash). Kid executes it 10 times. Introduces pattern thinking before free play.</div><div class="item-sub">10 min · coach-designed patterns</div></div></div>
+        <div class="item"><div class="item-num n-amber">3</div><div class="item-body"><div class="item-text"><strong>Pressure multi-shuttle</strong> — coach fires 10 shuttles rapidly to all corners. Kid must return each and recover to center between shots. Builds real match fitness.</div><div class="item-sub">8 min · 3 rounds with rest</div></div></div>
+        <div class="item"><div class="item-num n-amber">4</div><div class="item-body"><div class="item-text"><strong>Serve return practice</strong> — one kid serves repeatedly, partner focuses only on quality returns. Swap after 10 serves. A neglected skill in youth coaching.</div><div class="item-sub">8 min · dedicated focus</div></div></div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-amber">🎮</div>
+        <div class="acc-title">Competitive games</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-amber">1</div><div class="item-body"><div class="item-text"><strong>Mini-tournament (9-point sets)</strong> — run a round-robin with proper scoring. Use a whiteboard leaderboard. Teach score-calling and fair play before results.</div><div class="item-sub">20 min · full structure</div></div></div>
+        <div class="item"><div class="item-num n-amber">2</div><div class="item-body"><div class="item-text"><strong>Tactical challenge match</strong> — each player gets a secret "mission" before play (e.g. "win every point from a smash"). Teaches intention during play.</div><div class="item-sub">10 min · with debrief</div></div></div>
+        <div class="item"><div class="item-num n-amber">3</div><div class="item-body"><div class="item-text"><strong>Coaching timeout game</strong> — each kid gets 1 "timeout" card per match. They can pause and ask for 1 piece of advice. Teaches self-awareness and using resources.</div><div class="item-sub">10 min · pairs</div></div></div>
+        <div class="tip"><b>Coach tip:</b> Debrief every competitive game. Ask "what shot kept getting you in trouble?" before giving your own answer. Kids who self-diagnose fix problems 3× faster.</div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-head" onclick="toggle(this)">
+        <div class="acc-icon icon-amber">🧘</div>
+        <div class="acc-title">Cooldown</div>
+        <span class="acc-chevron">▶</span>
+      </div>
+      <div class="acc-body">
+        <div class="item"><div class="item-num n-amber">1</div><div class="item-body"><div class="item-text"><strong>Gentle rally to wind down</strong> — 2 minutes of slow, cooperative netting. Physiological cooldown while keeping a racket in hand.</div><div class="item-sub">2 min</div></div></div>
+        <div class="item"><div class="item-num n-amber">2</div><div class="item-body"><div class="item-text"><strong>Full lower body stretch sequence</strong> — standing quad stretch (30s each leg), seated butterfly (20s), lying hamstring pull (20s each).</div><div class="item-sub">3 min</div></div></div>
+        <div class="item"><div class="item-num n-amber">3</div><div class="item-body"><div class="item-text"><strong>Breathing reset</strong> — 3 deep breaths in through nose (4 counts), out through mouth (6 counts). Transfers directly to pre-match nerves control.</div><div class="item-sub">1 min</div></div></div>
+        <div class="item"><div class="item-num n-amber">4</div><div class="item-body"><div class="item-text"><strong>Session reflection card</strong> — each kid says: one strength, one area to improve, one goal for next session. Builds growth mindset from early on.</div><div class="item-sub">2 min</div></div></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+  function showStage(id, btn) {
+    document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function toggle(head) {
+    head.closest('.accordion').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
